@@ -1,0 +1,1176 @@
+/* Estilos base del documento */
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background: none;
+}
+
+/* Contenedor de la app */
+.app-container {
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Contenedor principal con máximo ancho y centrado */
+.contenedor {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Cabecera */
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+/* Título principal con gradiente de colores */
+.app-header h1 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg,
+      #ffd700,
+      #00e5ff,
+      #4caf50,
+      #ff9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px var(--shadow);
+}
+
+/* Subtítulo con animación de parpadeo */
+.app-subtitle {
+  font-family: Arial, Helvetica, sans-serif;
+  color: lightcyan;
+  font-size: 20px;
+  animation: blink 2s infinite ease-in-out;
+}
+
+/* Animación de parpadeo para el subtítulo */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Botón flotante para activar/desactivar sonido */
+.sound-toggle-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+/* Efecto hover del botón de sonido */
+.sound-toggle-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+
+                                                /* ===== FONDOS SEGÚN HORA DEL DÍA ===== */
+
+/* Dependiendo de si entras a la página de día o de noche tiene un fondo distinto */
+.time-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.6s ease;
+}
+
+/* DÍA → sin overlay */
+.modo-dia .time-overlay {
+  background: none;
+}
+
+/* NOCHE → oscurece */
+.modo-noche .time-overlay {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+
+/* FONDOS NOCTURNOS */
+/* Por defecto */
+.modo-noche.clima-default {
+  background: linear-gradient(135deg,
+      #0b132b,
+      #1c2541,
+      #3a506b);
+}
+/* tiempo despejado */
+.modo-noche.clima-clear {
+  background: linear-gradient(135deg,
+      #0f2027,
+      #203a43,
+      #2c5364);
+}
+/* Tiempo nuboso */
+.modo-noche.clima-clouds {
+  background: linear-gradient(135deg,
+      #22304a 0%,
+      #3a4a62 100%);
+}
+/* Tiempo lluvia y llovizna */
+.modo-noche.clima-rain,
+.modo-noche.clima-drizzle {
+  background: linear-gradient(135deg,
+      #141e30,
+      #243b55);
+}
+/* Tiempo de tormenta */
+.modo-noche.clima-thunderstorm {
+  background: linear-gradient(135deg,
+      #000000,
+      #1c1c1c);
+}
+/* Tiempo de nieve */
+.modo-noche.clima-snow {
+  background: linear-gradient(135deg,
+      #2b2b2b,
+      #3c3c3c);
+}
+
+
+/* FONDOS DE DÍA */
+/* Por defecto */
+.modo-dia.clima-default {
+  background: linear-gradient(135deg,
+      #89f7fe,
+      #66a6ff);
+}
+/* Tiempo despejado */
+.modo-dia.clima-clear {
+  background: linear-gradient(135deg,
+      #56ccf2,
+      #2f80ed);
+}
+/* Tiempo nublado */
+.modo-dia.clima-clouds {
+  background: linear-gradient(135deg,
+      #d7dce0,
+      #a0aec0);
+}
+/* Tiempo lluvia y llovizna */
+.modo-dia.clima-rain,
+.modo-dia.clima-drizzle {
+  background: linear-gradient(135deg,
+      #6fa3ef,
+      #4a6fa5);
+}
+/* Tiempo de tormenta */
+.modo-dia.clima-thunderstorm {
+  background: linear-gradient(135deg,
+      #5f6caf,
+      #3b3f72);
+}
+/* Tiempo nevado */
+.modo-dia.clima-snow {
+  background: linear-gradient(135deg,
+      #eef2f3,
+      #dfe9f3);
+}
+
+
+
+/* Texto para la hora del lugar */
+.local-time {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* COLORES DE TEXTO SEGÚN EL TIEMPO - DÍA */
+/* Por defecto */
+.modo-dia.clima-default .weather-header-info,
+.modo-dia.clima-default .local-time {
+  color: #1a3a5c;
+}
+/* Para despejado */
+.modo-dia.clima-clear .weather-header-info,
+.modo-dia.clima-clear .local-time {
+  color: #1a3a5c;
+}
+/* Para nublado */
+.modo-dia.clima-clouds .weather-header-info,
+.modo-dia.clima-clouds .local-time {
+  color: #2c3e50;
+}
+/* Para lluvia */
+.modo-dia.clima-rain .weather-header-info,
+.modo-dia.clima-rain .local-time,
+.modo-dia.clima-drizzle .weather-header-info,
+.modo-dia.clima-drizzle .local-time {
+  color: #f0f8ff;
+}
+/* Para tormenta */
+.modo-dia.clima-thunderstorm .weather-header-info,
+.modo-dia.clima-thunderstorm .local-time {
+  color: #e8e8e8;
+}
+/* Para nieve */
+.modo-dia.clima-snow .weather-header-info,
+.modo-dia.clima-snow .local-time {
+  color: #2c3e50;
+}
+
+
+
+/* COLORES DE TEXTO SEGÚN EL TIEMPO - NOCHE */
+.modo-noche .weather-header-info,
+.modo-noche .local-time {
+  color: #e0e8f0;
+}
+/* Para despejado */
+.modo-noche.clima-clear .weather-header-info,
+.modo-noche.clima-clear .local-time {
+  color: #89d4f5;
+}
+/* Para nublado */
+.modo-noche.clima-clouds .weather-header-info,
+.modo-noche.clima-clouds .local-time {
+  color: #b8c6d4;
+}
+/* Para nieve*/
+.modo-noche.clima-snow .weather-header-info,
+.modo-noche.clima-snow .local-time {
+  color: #d0e0f0;
+}
+
+/* Para niebla/bruma */
+.clima-mist .weather-header-info,
+.clima-mist .local-time,
+.clima-fog .weather-header-info,
+.clima-fog .local-time,
+.clima-haze .weather-header-info,
+.clima-haze .local-time {
+  color: #1a2530;
+}
+
+
+
+
+/* Para cuando hay niebla o bruma. Texto  */
+.silent-hill-text {
+  margin-left: 4px;
+  font-size: 0.9em;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Efectos de lluvia */
+.lluvia {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(-20deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.3) 2px,
+      rgba(255, 255, 255, 0.3) 4px);
+  background-size: 100% 20px;
+  animation: lluvia 0.3s linear infinite;
+}
+
+@keyframes lluvia {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -20px 40px;
+  }
+}
+
+/* Efectos de nieve */
+.nieve {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, white 1px, transparent 1px),
+    radial-gradient(circle at 40% 70%, white 2px, transparent 2px),
+    radial-gradient(circle at 60% 20%, white 1px, transparent 1px),
+    radial-gradient(circle at 80% 60%, white 2px, transparent 2px);
+  background-size: 100px 100px, 150px 150px, 120px 120px, 180px 180px;
+  animation: nieve 3s linear infinite;
+}
+
+@keyframes nieve {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 10px 100px, -15px 150px, 20px 120px, -10px 180px;
+  }
+}
+
+/* Efectos de tormenta */
+.tormenta {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: transparent;
+  animation: relampago 4s infinite;
+}
+
+@keyframes relampago {
+
+  0%,
+  89%,
+  91%,
+  93%,
+  100% {
+    background: transparent;
+  }
+
+  90% {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  92% {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Segundo relámpago con diferente timing */
+.tormenta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  animation: relampago2 7s infinite 2s;
+}
+
+@keyframes relampago2 {
+
+  0%,
+  94%,
+  96%,
+  98%,
+  100% {
+    background: transparent;
+  }
+
+  95% {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  97% {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Efectos de niebla - Múltiples capas de bruma flotantes */
+.niebla {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Capa base de niebla densa */
+.niebla::before {
+  content: '';
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background:
+    radial-gradient(ellipse 80% 40% at 20% 60%, rgba(200, 200, 200, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 70% 30%, rgba(180, 180, 180, 0.4) 0%, transparent 45%),
+    radial-gradient(ellipse 90% 35% at 40% 80%, rgba(220, 220, 220, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 45% at 80% 70%, rgba(190, 190, 190, 0.4) 0%, transparent 40%);
+  animation: niebla-flotante 25s ease-in-out infinite;
+}
+
+/* Segunda capa de niebla más ligera */
+.niebla::after {
+  content: '';
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background:
+    radial-gradient(ellipse 100% 50% at 10% 40%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 90% 50%, rgba(240, 240, 240, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 40% at 50% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 45%),
+    radial-gradient(ellipse 60% 55% at 30% 90%, rgba(230, 230, 230, 0.35) 0%, transparent 50%);
+  animation: niebla-flotante2 30s ease-in-out infinite reverse;
+}
+
+@keyframes niebla-flotante {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+
+  25% {
+    transform: translate(5%, 3%) scale(1.05);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: translate(-3%, -2%) scale(1.1);
+    opacity: 0.75;
+  }
+
+  75% {
+    transform: translate(-5%, 4%) scale(1.02);
+    opacity: 0.9;
+  }
+}
+
+@keyframes niebla-flotante2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.1);
+    opacity: 0.6;
+  }
+
+  33% {
+    transform: translate(-4%, 2%) scale(1);
+    opacity: 0.8;
+  }
+
+  66% {
+    transform: translate(3%, -3%) scale(1.15);
+    opacity: 0.65;
+  }
+}
+
+/* Modo oscuro ajustado para fondos de clima */
+[data-theme="dark"] .clima-clear {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+[data-theme="dark"] .clima-clouds {
+  background: linear-gradient(135deg, #373b44 0%, #4286f4 30%, #373b44 100%);
+}
+
+[data-theme="dark"] .clima-default {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+
+
+
+                                                /* ===== PARTE DE LA BÚSQUEDA DE TIEMPO ===== */
+
+/* Sección */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Barra de búsqueda con efecto "glassmorphism" */
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 0.5rem;
+  border: 1px solid var(--glass-border);
+}
+
+/* Input de búsqueda */
+.search-bar input {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: inherit;
+  outline: none;
+}
+
+/* Placeholder del input de búsqueda */
+.search-bar input::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+/* Botón de búsqueda circulares */
+.search-bar button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover del botón de búsqueda */
+.search-bar button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Estado deshabilitado del botón de búsqueda */
+.search-bar button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Botón de geolocalización */
+.geo-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s ease;
+}
+
+/* Efecto hover del botón de geolocalización */
+.geo-button:hover:not(:disabled) {
+  background: var(--glass-border);
+  transform: translateY(-2px);
+}
+
+/* Estado deshabilitado del botón de geolocalización */
+.geo-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Contenedor de carga */
+.loading {
+  color: #ff6b6b;
+  font-size: 20px;
+  font-family: initial;
+  text-align: center;
+  padding: 3rem;
+}
+
+/* Spinner animado de carga al buscar el tiempo */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--glass-border);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  animation: spin 1s linear infinite;
+}
+
+/* Animación de rotación del spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Contenedor de error */
+.error {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Mensaje de error */
+.error-msg {
+  text-align: center;
+  font-size: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #4599e7;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .contenedor {
+    padding: 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .search-bar {
+    padding: 0.25rem;
+  }
+
+  .search-bar input {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .search-bar button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .geo-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+
+
+                                                /* ===== ESTILOS PARA LOS COMPONENTES ===== */
+
+/* ESTILOS DE ContextualAdvice */
+.advice-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08); /* funciona en claro y oscuro */
+  backdrop-filter: blur(4px);
+}
+
+.advice-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+}
+
+.advice-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Elemento individual de consejo */
+.advice-item {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  opacity: 0.95;
+  color: #e8e8e8;
+}
+
+/* Último consejo sin borde inferior */
+.advice-item:last-child {
+  border-bottom: none;
+}
+
+/* Delays escalonados para animación de consejos */
+.advice-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.advice-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.advice-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.advice-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Animación de aparición gradual */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Contenedor de consejos en modo oscuro */
+[data-theme="dark"] .advice-container {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* ESTILOS DE Settings.css */
+.settings {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 100;
+}
+
+/* Botones de configuración circulares */
+.settings-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efecto hover de botones de configuración */
+.settings-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Botones de configuración en modo oscuro */
+[data-theme="dark"] .settings-btn {
+  background: rgba(0, 0, 0, 0.3);
+}
+/* Efecto hover de botones en modo oscuro */
+[data-theme="dark"] .settings-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+
+/* ESTILOS DE WeatherMap.css */
+.weather-map {
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.map-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.map-layers {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.layer-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layer-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.layer-btn.active {
+  background: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 300px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.map-base,
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.2),
+      rgba(0, 0, 0, 0.2));
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .map-overlay {
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}
+
+[data-theme="light"] .map-overlay {
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+.map-overlay {
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+}
+
+.map-note {
+  margin: 1rem 0 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Dark mode */
+[data-theme="dark"] .weather-map {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .layer-btn {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .layer-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .layer-btn.active {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .map-overlay {
+  mix-blend-mode: screen;
+}
+
+/* ESTILOS DE WeatherCard.css */
+.weather-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Animación de entrada hacia arriba */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Texto con el nombre de la ciudad */
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Texto "hace ... minutos" */
+.weather-header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+/* Nombre de la ciudad/ubicación */
+.location {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Texto actualizado de "hace ... minutos" */
+.updated {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Sección principal con icono y temperatura */
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Icono del clima con animación flotante */
+.weather-icon {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animación flotante del icono */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Contenedor de información de temperatura */
+.temp-container {
+  text-align: left;
+}
+
+/* Temperatura actual grande */
+.temp-current {
+  display: block;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Descripción del clima (nublado, soleado, etc.) */
+.temp-description {
+  display: block;
+  font-size: 1.25rem;
+  text-transform: capitalize;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
+
+/* Rango de temperaturas (máx y mín) */
+.temp-range {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Temperatura máxima en rojo */
+.temp-max {
+  color: #ff6b6b;
+}
+
+/* Temperatura mínima en azul */
+.temp-min {
+  color: #0082c8;
+  opacity: 0.85;
+}
+
+/* Temperatura mínima en climás lluviosos y tormentosos */
+.clima-rain .temp-min,
+.clima-thunderstorm .temp-min {
+  color: #cfe9ff;
+}
+
+/* Sección de sensación térmica */
+.feels-like {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+/* Valor de sensación térmica */
+.feels-like-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+/* Explicación de por qué difiere la sensación térmica */
+.feels-like-explanation {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Grid de detalles (humedad, viento, amanecer, atardecer) */
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Elemento individual de detalle */
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+/* Efecto hover de los detalles */
+.detail-item:hover {
+  transform: scale(1.02);
+}
+
+/* Icono en los detalles */
+.detail-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Etiqueta de los detalles */
+.detail-label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Valor de los detalles */
+.detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* Sección de precipitación (lluvia/nieve) */
+.precipitation {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: rgba(100, 149, 237, 0.2);
+  border-radius: 12px;
+}
+
+/* Elemento de precipitación */
+.precip-item {
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .weather-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .temp-current {
+    font-size: 3rem;
+  }
+
+  .weather-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .weather-details {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .detail-item {
+    padding: 0.75rem;
+  }
+}
+
+/* Tarjeta del clima en modo oscuro */
+[data-theme="dark"] .weather-card {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Sensación térmica y detalles en modo oscuro */
+[data-theme="dark"] .feels-like,
+[data-theme="dark"] .detail-item {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Precipitación en modo oscuro */
+[data-theme="dark"] .precipitation {
+  background: rgba(100, 149, 237, 0.15);
+}
+
+/* Variables de tema (claro) */
+:root {
+  --bg-primary: #16d3d3;
+  --text-primary: #1a1a2e;
+  --text-secondary: #555; /* opcional, para detalles */
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Variables de tema (oscuro) */
+[data-theme="dark"] {
+  --bg-primary: #1a1a2e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #ccc;
+  --card-bg: rgba(30, 30, 50, 0.9);
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Reset total de márgenes, padding y modelo de caja */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Respetar preferencia de usuario para reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .lluvia,
+  .nieve {
+    display: none;
+  }
+}
