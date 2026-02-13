@@ -56,10 +56,12 @@ body {
 
 /* Animación de parpadeo para el subtítulo */
 @keyframes blink {
+
   0%,
   100% {
     opacity: 0.8;
   }
+
   50% {
     opacity: 0.4;
   }
@@ -90,10 +92,175 @@ body {
 }
 
 
+/* ===== PARTE DE LA BÚSQUEDA DE TIEMPO ===== */
+
+/* Sección */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Barra de búsqueda con efecto "glassmorphism" */
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 0.5rem;
+  border: 1px solid var(--glass-border);
+}
+
+/* Input de búsqueda */
+.search-bar input {
+  font-family: cursive;
+  color: red;
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Placeholder del input de búsqueda */
+.search-bar input::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+/* Botón de búsqueda circulares */
+.search-bar button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover del botón de búsqueda */
+.search-bar button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Estado deshabilitado del botón de búsqueda */
+.search-bar button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Botón de geolocalización */
+.geo-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s ease;
+}
+
+/* Efecto hover del botón de geolocalización */
+.geo-button:hover:not(:disabled) {
+  background: var(--glass-border);
+  transform: translateY(-2px);
+}
+
+/* Estado deshabilitado del botón de geolocalización */
+.geo-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Contenedor de carga */
+.loading {
+  color: #ff6b6b;
+  font-size: 20px;
+  font-family: initial;
+  text-align: center;
+  padding: 3rem;
+}
+
+/* Spinner animado de carga al buscar el tiempo */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--glass-border);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  animation: spin 1s linear infinite;
+}
+
+/* Animación de rotación del spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Contenedor de error */
+.error {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Mensaje de error */
+.error-msg {
+  text-align: center;
+  font-size: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #4599e7;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .contenedor {
+    padding: 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .search-bar {
+    padding: 0.25rem;
+  }
+
+  .search-bar input {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .search-bar button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .geo-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
 
 
-
-                                                /* ===== FONDOS SEGÚN HORA DEL DÍA ===== */
+/* ===== FONDOS SEGÚN HORA DEL DÍA ===== */
 
 /* Dependiendo de si entras a la página de día o de noche tiene un fondo distinto */
 .time-overlay {
@@ -123,6 +290,7 @@ body {
       #1c2541,
       #3a506b);
 }
+
 /* tiempo despejado */
 .modo-noche.clima-clear {
   background: linear-gradient(135deg,
@@ -130,12 +298,14 @@ body {
       #203a43,
       #2c5364);
 }
+
 /* Tiempo nuboso */
 .modo-noche.clima-clouds {
   background: linear-gradient(135deg,
       #22304a 0%,
       #3a4a62 100%);
 }
+
 /* Tiempo lluvia y llovizna */
 .modo-noche.clima-rain,
 .modo-noche.clima-drizzle {
@@ -143,12 +313,14 @@ body {
       #141e30,
       #243b55);
 }
+
 /* Tiempo de tormenta */
 .modo-noche.clima-thunderstorm {
   background: linear-gradient(135deg,
       #000000,
       #1c1c1c);
 }
+
 /* Tiempo de nieve */
 .modo-noche.clima-snow {
   background: linear-gradient(135deg,
@@ -164,18 +336,21 @@ body {
       #89f7fe,
       #66a6ff);
 }
+
 /* Tiempo despejado */
 .modo-dia.clima-clear {
   background: linear-gradient(135deg,
       #56ccf2,
       #2f80ed);
 }
+
 /* Tiempo nublado */
 .modo-dia.clima-clouds {
   background: linear-gradient(135deg,
       #d7dce0,
       #a0aec0);
 }
+
 /* Tiempo lluvia y llovizna */
 .modo-dia.clima-rain,
 .modo-dia.clima-drizzle {
@@ -183,12 +358,14 @@ body {
       #6fa3ef,
       #4a6fa5);
 }
+
 /* Tiempo de tormenta */
 .modo-dia.clima-thunderstorm {
   background: linear-gradient(135deg,
       #5f6caf,
       #3b3f72);
 }
+
 /* Tiempo nevado */
 .modo-dia.clima-snow {
   background: linear-gradient(135deg,
@@ -212,16 +389,19 @@ body {
 .modo-dia.clima-default .local-time {
   color: #1a3a5c;
 }
+
 /* Para despejado */
 .modo-dia.clima-clear .weather-header-info,
 .modo-dia.clima-clear .local-time {
   color: #1a3a5c;
 }
+
 /* Para nublado */
 .modo-dia.clima-clouds .weather-header-info,
 .modo-dia.clima-clouds .local-time {
   color: #2c3e50;
 }
+
 /* Para lluvia */
 .modo-dia.clima-rain .weather-header-info,
 .modo-dia.clima-rain .local-time,
@@ -229,11 +409,13 @@ body {
 .modo-dia.clima-drizzle .local-time {
   color: #f0f8ff;
 }
+
 /* Para tormenta */
 .modo-dia.clima-thunderstorm .weather-header-info,
 .modo-dia.clima-thunderstorm .local-time {
   color: #e8e8e8;
 }
+
 /* Para nieve */
 .modo-dia.clima-snow .weather-header-info,
 .modo-dia.clima-snow .local-time {
@@ -247,16 +429,19 @@ body {
 .modo-noche .local-time {
   color: #e0e8f0;
 }
+
 /* Para despejado */
 .modo-noche.clima-clear .weather-header-info,
 .modo-noche.clima-clear .local-time {
   color: #89d4f5;
 }
+
 /* Para nublado */
 .modo-noche.clima-clouds .weather-header-info,
 .modo-noche.clima-clouds .local-time {
   color: #b8c6d4;
 }
+
 /* Para nieve*/
 .modo-noche.clima-snow .weather-header-info,
 .modo-noche.clima-snow .local-time {
@@ -272,7 +457,6 @@ body {
 .clima-haze .local-time {
   color: #1a2530;
 }
-
 
 
 
@@ -489,176 +673,7 @@ body {
 
 
 
-
-                                                /* ===== PARTE DE LA BÚSQUEDA DE TIEMPO ===== */
-
-/* Sección */
-.search-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-/* Barra de búsqueda con efecto "glassmorphism" */
-.search-bar {
-  display: flex;
-  gap: 0.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 50px;
-  padding: 0.5rem;
-  border: 1px solid var(--glass-border);
-}
-
-/* Input de búsqueda */
-.search-bar input {
-  flex: 1;
-  padding: 0.75rem 1.25rem;
-  border: none;
-  background: transparent;
-  font-size: 1rem;
-  color: inherit;
-  outline: none;
-}
-
-/* Placeholder del input de búsqueda */
-.search-bar input::placeholder {
-  color: inherit;
-  opacity: 0.6;
-}
-
-/* Botón de búsqueda circulares */
-.search-bar button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Efecto hover del botón de búsqueda */
-.search-bar button:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-/* Estado deshabilitado del botón de búsqueda */
-.search-bar button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Botón de geolocalización */
-.geo-button {
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 50px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  color: inherit;
-  font-size: 1rem;
-  cursor: pointer;
-  border: 1px solid var(--glass-border);
-  transition: all 0.2s ease;
-}
-
-/* Efecto hover del botón de geolocalización */
-.geo-button:hover:not(:disabled) {
-  background: var(--glass-border);
-  transform: translateY(-2px);
-}
-
-/* Estado deshabilitado del botón de geolocalización */
-.geo-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Contenedor de carga */
-.loading {
-  color: #ff6b6b;
-  font-size: 20px;
-  font-family: initial;
-  text-align: center;
-  padding: 3rem;
-}
-
-/* Spinner animado de carga al buscar el tiempo */
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid var(--glass-border);
-  border-top-color: #667eea;
-  border-radius: 50%;
-  margin: 0 auto 1rem;
-  animation: spin 1s linear infinite;
-}
-
-/* Animación de rotación del spinner */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Contenedor de error */
-.error {
-  padding: 1rem 1.5rem;
-  background: rgba(255, 107, 107, 0.2);
-  border: 1px solid rgba(255, 107, 107, 0.4);
-  border-radius: 12px;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-/* Mensaje de error */
-.error-msg {
-  text-align: center;
-  font-size: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #4599e7;
-  font-weight: 600;
-  margin-top: 1rem;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .contenedor {
-    padding: 1rem;
-  }
-
-  .app-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .search-bar {
-    padding: 0.25rem;
-  }
-
-  .search-bar input {
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-  }
-
-  .search-bar button {
-    width: 44px;
-    height: 44px;
-  }
-
-  .geo-button {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
-  }
-}
-
-
-
-                                                /* ===== ESTILOS PARA LOS COMPONENTES ===== */
+/* ===== ESTILOS PARA LOS COMPONENTES ===== */
 
 /* ESTILOS DE ContextualAdvice */
 .advice-container {
@@ -666,7 +681,8 @@ body {
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08); /* funciona en claro y oscuro */
+  background: rgba(255, 255, 255, 0.08);
+  /* funciona en claro y oscuro */
   backdrop-filter: blur(4px);
 }
 
@@ -705,12 +721,15 @@ body {
 .advice-item:nth-child(1) {
   animation-delay: 0.1s;
 }
+
 .advice-item:nth-child(2) {
   animation-delay: 0.2s;
 }
+
 .advice-item:nth-child(3) {
   animation-delay: 0.3s;
 }
+
 .advice-item:nth-child(4) {
   animation-delay: 0.4s;
 }
@@ -766,6 +785,7 @@ body {
 [data-theme="dark"] .settings-btn {
   background: rgba(0, 0, 0, 0.3);
 }
+
 /* Efecto hover de botones en modo oscuro */
 [data-theme="dark"] .settings-btn:hover {
   background: rgba(0, 0, 0, 0.4);
@@ -895,6 +915,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -951,10 +972,12 @@ body {
 
 /* Animación flotante del icono */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -1138,7 +1161,8 @@ body {
 :root {
   --bg-primary: #16d3d3;
   --text-primary: #1a1a2e;
-  --text-secondary: #555; /* opcional, para detalles */
+  --text-secondary: #555;
+  /* opcional, para detalles */
   --card-bg: rgba(255, 255, 255, 0.9);
   --glass-bg: rgba(255, 255, 255, 0.2);
   --glass-border: rgba(255, 255, 255, 0.3);
@@ -1169,6 +1193,7 @@ body {
     animation: none !important;
     transition: none !important;
   }
+
   .lluvia,
   .nieve {
     display: none;
