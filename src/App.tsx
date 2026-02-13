@@ -11,31 +11,31 @@ export default function App() {
 
   /* Ciudad introducida por el usuario en el buscador */
   const [ciudad, setCiudad] = useState<string>('');
-  
+
   /* Datos completos del clima de la ciudad buscada */
   const [datosClima, setDatosClima] = useState<WeatherData | null>(null);
-  
+
   /* Coordenadas geográficas de la ciudad */
   const [coordenadas, setCoordenadas] = useState<{ lat: number; lon: number } | null>(null);
-  
+
   /* Indica si se está cargando la información del clima */
   const [cargando, setCargando] = useState<boolean>(false);
-  
+
   /* Mensaje de error si algo falla en la búsqueda */
   const [error, setError] = useState<string | null>(null);
-  
+
   /* Unidades de medida (métrico o imperial) y función para alternar */
   const { units, toggleUnits } = useSettings();
-  
+
   /* URL base de la API de OpenWeatherMap */
   const urlBase = 'https://api.openweathermap.org/data/2.5/weather';
-  
+
   /* Clave API cargada desde variables de entorno */
   const api_key = import.meta.env.VITE_OPENWEATHER_KEY;
-  
+
   /* Diferencia entre Kelvin y Celsius (273.15) para convertir temperaturas */
   const difKelvin = 273.15;
-  
+
   /* Estado para activar/desactivar el sonido del clima */
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -126,23 +126,29 @@ export default function App() {
 
     try {
       // Fetch a la API con el término de búsqueda (ej: "q=ciudad" o "lat=..&lon=..")
-      const response = await fetch(`${urlBase}?q=${ciudad}&appid=${api_key}&lang=es`);
-      const data = await response.json();
+      const response = await fetch(`${urlBase}?${queryParams}&appid=${api_key}`);
 
-      // Validar respuesta de la API
+      // Validando respuesta de la API
       if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error('API Error:', response.status, errorData);
         if (response.status === 404) {
           throw new Error('No se ha encontrado esa ciudad 🤔');
         }
-        throw new Error('Error al obtener los datos del tiempo');
+        if (response.status === 401) {
+          throw new Error('API Key no válida o no activada. Las keys nuevas pueden tardar unas horas en activarse ⏳');
+        }
+        throw new Error(`Error al obtener los datos del tiempo (${response.status})`);
       }
+
+      const data = await response.json();
 
       // Validar que no se busque por nombre de país
       const searchTerm = ciudad.trim().toLowerCase();
       const countryCode = data.sys.country?.toLowerCase() || '';
 
       // Lista de nombres de países comunes para validar que no se busque por nombre de país
-      const paises: string | string[] = [ /* ...lista de países... */ ];
+      const paises: string | string[] = [ /* ...lista de países... */];
 
       // Si el término buscado es un país conocido, rechazar
       if (paises.includes(searchTerm)) {
@@ -205,21 +211,21 @@ export default function App() {
 
   /* Prepara los datos del clima con las unidades convertidas */
   const datosConvertidos = datosClima ? {
-      ...datosClima,
-      temperatura: convertTemperature(datosClima.temperatura),
-      tempMax: convertTemperature(datosClima.tempMax),
-      tempMin: convertTemperature(datosClima.tempMin),
-      sensacionTermica: convertTemperature(datosClima.sensacionTermica),
-      vientoVelocidad:
-        units === 'imperial'
-          ? datosClima.vientoVelocidad * 2.237
-          : datosClima.vientoVelocidad,
+    ...datosClima,
+    temperatura: convertTemperature(datosClima.temperatura),
+    tempMax: convertTemperature(datosClima.tempMax),
+    tempMin: convertTemperature(datosClima.tempMin),
+    sensacionTermica: convertTemperature(datosClima.sensacionTermica),
+    vientoVelocidad:
+      units === 'imperial'
+        ? datosClima.vientoVelocidad * 2.237
+        : datosClima.vientoVelocidad,
   } : null;
 
 
   /* Efecto: cuando cambia el clima, reproduce el sonido adecuado */
   useEffect(() => {
-    
+
     // Si no hay datos del clima, no hacer nada
     if (!datosClima) return;
 
@@ -313,10 +319,10 @@ export default function App() {
 
 
   return (
-    
+
     // La clase del contenedor principal cambia según el tipo de clima, y si es de día o de noche, para aplicar diferentes fondos
     <div className={`app-container clima-${datosClima?.tipo || 'default'} ${esDia ? 'modo-dia' : 'modo-noche'}`}>
-      
+
       {/* Dependiendo de si entras a la página de día o de noche, el fondo es distinto */}
       <div className="time-overlay" />
 
